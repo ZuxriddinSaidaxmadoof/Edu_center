@@ -1,0 +1,67 @@
+// hero/hero.proto
+syntax = "proto3";
+import "google/protobuf/any.proto";
+package auth;
+
+service UserService {
+  rpc FindOne (UserById) returns (ResDataFindOne) {}
+  rpc FindAll (empty) returns (ResDataFindAll) {}
+  rpc Create (CreateUser) returns (Register) {}
+  rpc Update (UpdateUser) returns (ResDataFindOne) {}
+  rpc Delete (UserById) returns (ResDataFindOne) {}
+
+}
+
+message UserById {
+  int32 id = 1;
+}
+message empty {
+}
+
+message RepeatedUser {
+  repeated User users = 1;
+}
+
+message Register {
+  string message = 1;
+  int32 statusCode = 2;
+  RegisterData data = 3;
+  string error = 4;
+}
+
+message RegisterData {
+  User data = 1;
+  string token = 2;
+}
+
+message ResDataFindOne {
+  string message = 1;
+  int32 statusCode = 2;
+  User data = 3;
+  string error = 4;
+}
+message ResDataFindAll {
+  string message = 1;
+  int32 statusCode = 2;
+  repeated User data = 3;
+  string error = 4;
+}
+
+message CreateUser {
+  string login = 2;
+  string password = 3;
+}
+
+message UpdateUser {
+  int32 id = 1;
+  optional string login = 2;
+  optional string password = 3;
+}
+
+message User {
+  int32 id = 1;
+  string login = 2;
+  string password = 3;
+  string createdAt = 4;
+  string lastUpdatedAt = 5;
+}

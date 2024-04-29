@@ -7,7 +7,6 @@ import { existsSync, mkdir, mkdirSync } from 'fs';
 import { Request } from 'express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FileEntity } from './entities/file.entity';
-import { config } from 'src/common/config';
 import { FileRepository } from './file.repository';
 
 @Module({
@@ -31,12 +30,6 @@ import { FileRepository } from './file.repository';
       })
     }),
     TypeOrmModule.forFeature([FileEntity]),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: config.databaseUrl,
-      entities: [FileEntity],
-      synchronize: true,
-    })
   ],
   controllers: [FileController],
   providers: [FileService, FileRepository],

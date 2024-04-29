@@ -5,10 +5,13 @@ import { FileModule } from './modules/file/file.module';
 import { CourseModule } from './modules/course/course.module';
 import { redisStore } from 'cache-manager-redis-yet';
 import { CacheModule } from '@nestjs/cache-manager';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmConfig } from './common/database/config';
 
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

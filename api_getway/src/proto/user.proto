@@ -7,6 +7,7 @@ service UserService {
   rpc FindOne (UserById) returns (ResDataFindOne) {}
   rpc FindAll (empty) returns (ResDataFindAll) {}
   rpc Create (CreateUser) returns (Register) {}
+  rpc Login (CreateUser) returns (Register) {}
   rpc Update (UpdateUser) returns (ResDataFindOne) {}
   rpc Delete (UserById) returns (ResDataFindOne) {}
 
@@ -48,8 +49,8 @@ message ResDataFindAll {
 }
 
 message CreateUser {
-  string login = 2;
-  string password = 3;
+  string login = 1;
+  string password = 2;
 }
 
 message UpdateUser {

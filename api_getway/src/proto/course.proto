@@ -1,0 +1,55 @@
+// hero/hero.proto
+syntax = "proto3";
+import "google/protobuf/any.proto";
+package course;
+
+service CourseService {
+  rpc FindOne (CourseById) returns (ResDataFindOne) {}
+  rpc FindAll (empty) returns (ResDataFindAll) {}
+  rpc Create (CreateCourse) returns (ResDataFindOne) {}
+  rpc Update (UpdateCourse) returns (ResDataFindOne) {}
+  rpc Delete (CourseById) returns (ResDataFindOne) {}
+
+}
+
+message CourseById {
+  int32 id = 1;
+}
+message empty {
+}
+
+message RepeatedUser {
+  repeated Course users = 1;
+}
+
+message ResDataFindOne {
+  string message = 1;
+  int32 statusCode = 2;
+  Course data = 3;
+  string error = 4;
+}
+message ResDataFindAll {
+  string message = 1;
+  int32 statusCode = 2;
+  repeated Course data = 3;
+  string error = 4;
+}
+
+message CreateCourse {
+  string title = 1;
+  string description = 2;
+}
+
+message UpdateCourse {
+  int32 id = 1;
+  optional string title = 2;
+  optional string description = 3;
+}
+
+message Course {
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  string createdAt = 4;
+  string lastUpdatedAt = 5;
+}

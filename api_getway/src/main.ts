@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './lib/AllExceptionFilter';
 import { config } from './common/config';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -26,6 +27,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  // Make upload file static
+  app.useStaticAssets(join(__dirname, '../', 'upload'));
 
   // Swagger set up
   const options = new DocumentBuilder()
@@ -40,8 +43,8 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(config.serverPort, () => {
-    console.log(`http://localhost:${config.serverPort}`);
-    console.log(`http://localhost:${config.serverPort}/docs`);
+    console.log(`${config.serverHost}${config.serverPort}`);
+    console.log(`${config.serverHost}${config.serverPort}/docs`);
   });
 }
 bootstrap();

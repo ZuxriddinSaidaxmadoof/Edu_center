@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod, MessagePattern, Payload, RpcException } from '@nestjs/microservices';
+import { GrpcMethod } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,7 +23,7 @@ export class UsersController {
     
     const items = await this.usersService.findAll();
      
-    return items
+    return items;
   }
 
   @GrpcMethod('UserService', 'Create')
@@ -33,6 +33,11 @@ export class UsersController {
       return new BadRequesrException("This login already exist", 400);
     }
     return await this.usersService.create(data);
+  }
+
+  @GrpcMethod('UserService', 'Login')
+  async login(data: CreateUserDto, metadata: Metadata, call: ServerUnaryCall<any, any>) {
+    return await this.usersService.login(data);
   }
 
   @GrpcMethod('UserService', 'Update')

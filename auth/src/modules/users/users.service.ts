@@ -17,6 +17,20 @@ export class UsersService {
     return new ResData("created", 201, register);
   }
 
+  async login(createUserDto: CreateUserDto) {
+    const foundByLogin = await this.userRepository.findOneByLogin(createUserDto.login);
+    if(!foundByLogin){
+      return new ResData("Login or password wrong", 400);
+    }
+    else if(foundByLogin.password !== createUserDto.password){
+      return new ResData("Login or password wrong", 400);
+    }
+
+    const token = await this.jwtService.signAsync({id: foundByLogin.id});
+    const register = {data: foundByLogin, token};
+    return new ResData("Successfully loged in", 200, register);
+  }
+
   async findAll() {
     const allData = await this.userRepository.findAll()
     return new ResData("All users", 200, allData);

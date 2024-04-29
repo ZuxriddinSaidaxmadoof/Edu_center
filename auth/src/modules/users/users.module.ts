@@ -11,17 +11,10 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: config.databaseUrl,
-      entities: [UserEntity],
-      synchronize: true,
-    }),
     JwtModule.register({
       global: true,
       secret: 'ok',
       signOptions: { expiresIn: '1h' }
-      // signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [UsersController],

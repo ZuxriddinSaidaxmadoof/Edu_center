@@ -9,11 +9,18 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post("Login")
+  login(@Body() createAuthDto: CreateAuthDto) {
+    
+    return this.authService.login(createAuthDto);
+  }
+
+  @Post("Register")
   create(@Body() createAuthDto: CreateAuthDto) {
     
     return this.authService.create(createAuthDto);
   }
+
   
   @Get()
   findAll() {
@@ -32,6 +39,6 @@ export class AuthController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.authService.remove(+id)
+    return this.authService.remove(+id);
   }
 }

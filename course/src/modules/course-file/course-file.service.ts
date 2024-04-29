@@ -32,11 +32,13 @@ export class CourseFileService {
   
     async findOneByCourseId(courseId: number) {
       const foundCourseFile = await this.courseRepository.findOneByCourseId(courseId);
+      console.log("found",foundCourseFile);
+      
       if(!foundCourseFile){
-        return new ResData("Course file Not found", 404, foundCourseFile)
+        return new ResData("Course file Not found by courseId", 404, foundCourseFile)
       }
   
-      return new ResData("One course file by login", 200, foundCourseFile)
+      return new ResData("One course file by course id", 200, foundCourseFile)
     }
   
     async update(id: number, updateCourseDto: UpdateCourseFileDto) {

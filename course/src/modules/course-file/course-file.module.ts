@@ -4,9 +4,11 @@ import { CourseFileController } from './course-file.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CourseFileEntity } from './entities/course-file.entity';
 import { CourseFileRepository } from './course-file.repository';
+import { SharedModule } from '../shared/shared.module';
+import { CourseRepository } from '../course/course.repository';
 
 @Module({
-  imports: [
+  imports: [SharedModule,
     TypeOrmModule.forFeature([CourseFileEntity]),
   ],
   controllers: [CourseFileController],

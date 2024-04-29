@@ -13,7 +13,6 @@ export class CourseService {
 
   constructor(@Inject(COURSE_PACKAGE) private client: ClientGrpc,
   @Inject("CACHE_MANAGER") private cacheManager: Cache,
-  
   ) {}
 
   onModuleInit() {
@@ -28,7 +27,12 @@ export class CourseService {
     } 
 
     const data = await this.courseService.findAll({});
-    await this.cacheManager.set("courses", data.data, 0);
+    if(data.length> 0){
+      data.subscribe({
+        next: value => this.cacheManager.set("courses", value?.data, 0).then(), 
+        complete: () => console.log('Sequence complete'), 
+      })
+    }
 
     return data;
   }

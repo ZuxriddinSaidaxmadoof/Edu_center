@@ -4,7 +4,6 @@ import { Cache } from '@nestjs/cache-manager';
 import { USER_PACKAGE } from 'src/common/const/microservices';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import { ResData } from 'src/lib/resData';
 
 @Injectable()
 export class AuthService {
@@ -23,11 +22,17 @@ export class AuthService {
     const allUsers = await this.cacheManager.get("users");
 
     if(allUsers){
-      return new ResData('All users from redis', 200, allUsers);
+      return allUsers;
     } 
 
     const data = await this.userService.findAll({});
-    await this.cacheManager.set("users", data.data, 0);
+
+    if(data.length> 0){
+      data.subscribe({
+        next: value => this.cacheManager.set("users", value?.data, 0).then(), 
+        complete: () => console.log('Sequence complete'), 
+      })
+    }
 
     return data;
   }

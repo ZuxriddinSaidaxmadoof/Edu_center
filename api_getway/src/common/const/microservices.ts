@@ -1,4 +1,6 @@
 export const USER_PACKAGE = "USER_PACKAGE";
 export const FILE_PACKAGE = "FILE_PACKAGE";
 export const COURSE_PACKAGE = "COURSE_PACKAGE";
+export const COURSE_FILE_PACKAGE = "COURSE_FILE_PACKAGE";
+
 

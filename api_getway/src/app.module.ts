@@ -7,6 +7,7 @@ import { redisStore } from 'cache-manager-redis-yet';
 import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './common/database/config';
+import { CourseFileModule } from './modules/course-file/course-file.module';
 
 
 @Module({
@@ -31,6 +32,7 @@ import { typeOrmConfig } from './common/database/config';
     AuthModule,
     FileModule,
     CourseModule,
+    CourseFileModule,
   ],
 })
 export class AppModule {}

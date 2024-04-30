@@ -8,6 +8,8 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './common/database/config';
 import { CourseFileModule } from './modules/course-file/course-file.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { UserCourseModule } from './modules/user-course/user-course.module';
 
 
 @Module({
@@ -30,9 +32,11 @@ import { CourseFileModule } from './modules/course-file/course-file.module';
       }
     }),
     AuthModule,
+    SharedModule,
     FileModule,
     CourseModule,
     CourseFileModule,
+    UserCourseModule,
   ],
 })
 export class AppModule {}

@@ -1,4 +1,3 @@
-import { UseFilters } from '@nestjs/common/decorators';
 import { NestFactory } from '@nestjs/core';
 import { MessagePattern, Transport } from '@nestjs/microservices';
 import { MicroserviceOptions } from '@nestjs/microservices/interfaces';
@@ -11,8 +10,8 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.GRPC,
     options: {
-      package: 'auth',
-      protoPath: join(__dirname, './proto/user.proto'),
+      package: ['auth', 'user_course'],
+      protoPath: [join(__dirname, './proto/user.proto'), join(__dirname, './proto/user_course.proto')],
       url: "localhost:7700"
     },
   });

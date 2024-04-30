@@ -4,6 +4,8 @@ import { CourseFileController } from './course-file.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { COURSE_FILE_PACKAGE } from 'src/common/const/microservices';
 import { join } from 'path';
+import { SharedModule } from '../shared/shared.module';
+import { FileRepository } from '../file/file.repository';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { join } from 'path';
           url: "localhost:8800"
         },
       },
-    ]),
+    ]),SharedModule
   ],
   controllers: [CourseFileController],
   providers: [CourseFileService],

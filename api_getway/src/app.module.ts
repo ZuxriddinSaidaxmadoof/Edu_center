@@ -10,11 +10,15 @@ import { typeOrmConfig } from './common/database/config';
 import { CourseFileModule } from './modules/course-file/course-file.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { UserCourseModule } from './modules/user-course/user-course.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
